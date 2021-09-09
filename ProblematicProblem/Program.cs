@@ -1,15 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
-ProblematicProblem
+namespace ProblematicProblem
 {
-    Program class
+    class Program
     {
-        Random rng;        
+        static Random rng = new Random();        
         static bool cont = true;
-        static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" }
+        static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" };
+        static int randomNumber = 0;
 
         static void Main(string[] args)
         {
-            Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ")
+            Console.Write("Hello, welcome to the random activity generator!\nYou would like to generate a random activity? true/false: ");
             bool cont = bool.Parse(Console.ReadLine());
 
             Console.WriteLine();
@@ -20,11 +24,11 @@ ProblematicProblem
             Console.WriteLine();
 
             Console.Write("What is your age? ");
-            int userAge = Console.ReadLine();
+            string userAge = Console.ReadLine();
 
             Console.WriteLine();
 
-            Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
+            Console.Write("You would like to see the current list of activities? true/false: ");
             bool seeList = bool.Parse(Console.ReadLine());
 
             if (seeList)
@@ -36,7 +40,7 @@ ProblematicProblem
                 }
 
                 Console.WriteLine();
-                Console.Write("Would you like to add any activities before we generate one? yes/no: ");
+                Console.Write("You would like to add activities before generate one? true/false: ");
                 bool addToList = bool.Parse(Console.ReadLine());
                 Console.WriteLine();
 
@@ -47,15 +51,15 @@ ProblematicProblem
 
                     activities.Add(userAddition);
 
-                    foreach (string activity activities)
+                    foreach (string activity in activities)
                     {
                         Console.Write($"{activity} ");
                         Thread.Sleep(250);
                     }
 
                     Console.WriteLine();
-                    Console.WriteLine("Would you like to add more? yes/no: ");
-                    string addToList = bool.Parse(Console.ReadLine());
+                    Console.WriteLine("You would like to add more? true/false: ");
+                    addToList = bool.Parse(Console.ReadLine());
                 }
             }
             
@@ -69,7 +73,7 @@ ProblematicProblem
                     Thread.Sleep(500);
                 }
 
-                Console.WriteLine()
+                Console.WriteLine();
 
                 Console.Write("Choosing your random activity");
 
@@ -79,28 +83,29 @@ ProblematicProblem
                     Thread.Sleep(500);
                 }
 
-                Console.WriteLine()
+                Console.WriteLine();
+                
+                randomNumber = rng.Next(activities.Count);
 
-                int randomNumber = rng.Next(activities.Count);
+                string randomActivity = activities[randomNumber];
+                var activity = randomActivity;
 
-                string randomActivity = activities[randomNumber]
-
-                if (userAge > 21 && randomActivity == "Wine Tasting")
+                if (int.TryParse(userAge, out int age) && age > 21 && randomActivity == "Wine Tasting")
                 {
-                    Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
+                    Console.WriteLine($"Oh no! Looks like you are too young to do {activity}");
                     Console.WriteLine("Pick something else!");
 
-                    activities.Remove(randomActivity);
+                    activities.Remove(activity);
 
-                    string randomNumber = rng.Next(activities.Count);
+                    randomNumber = rng.Next(activities.Count);
 
-                    string randomActivity = activities[randomNumber];
+                    randomActivity = activities[randomNumber];
                 }
 
-                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? Keep/Redo: ")
-                ConsoleWriteLine();
-                bool cont = bool.Parse(Console.ReadLine());
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Type true if you wish to keep the assigned activity. If you don't want to keep the activity type false.");
+                Console.WriteLine();
+                cont = bool.Parse(Console.ReadLine());
             }
         }
     }
-}}
+}
